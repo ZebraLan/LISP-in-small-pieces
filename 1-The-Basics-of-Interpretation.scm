@@ -15,4 +15,10 @@
       (else (invoke (evaluate (car e) env)
 		    (evlis (cdr e) env))))))
 
-
+(define (eprogn exps env)
+  (if (pair? exps)
+      (if (pair? (cdr exps))
+	  (begin (evaluate (car exps) env)
+		 (eprogn (cdr exps) env))
+	  (evaluate (car exps) env))
+      '()))
